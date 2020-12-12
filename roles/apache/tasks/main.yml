@@ -1,13 +1,18 @@
 ---
 # Tache d'installation Apache
 - name: Installation Apache MSI
-  hosts: win
+  hosts: windows
 
   tasks:
-    - name: Telechargement Apache
-      win_get_url:
-        url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
-        dest: C:\apache\httpd-2.2.25-win32-x86-no_ssl.msi
+    - name: Creation du repertoire Apache
+      win_command: cmd.exe /e:ON mkdir -p c:\apache 
+
+    - name: Copie Apache
+      win_copy:
+        src: /home/ansible/git/Factory/install/apache/
+        dest: C:\apache\
+        force: yes
+
 
     - name: Install MSI
       win_package:
