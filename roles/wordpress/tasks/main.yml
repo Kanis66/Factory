@@ -1,2 +1,19 @@
 ---
-# tasks file for wordpress
+# Tache de mise en place de wordpress
+- name: Installation wordpress
+  hosts: windows
+
+  tasks:
+    - name: Creation du repertoire wordpress
+      win_command: cmd.exe /e:ON mkdir -p c:\wp
+
+    - name: Copie wordpress
+      win_copy:
+        src: /home/ansible/git/Factory/install/wordpress/
+        dest: C:\wp\
+        force: yes
+
+
+    - name: decompression zip
+      win_command: powershell.exe Expand-Archive -Force c:\wp\wordpress-5.6-fr_FR.zip c:\
+
