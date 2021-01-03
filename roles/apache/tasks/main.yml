@@ -32,7 +32,10 @@
       args:
          chdir: c:\Program Files (x86)\Apache Software Foundation\Apache2.2\Bin\
 
-    - name: lancement service apache
+    - name: parametrage service apache
+      win_command: powershell Set-Service -Name apache -StartupType Automatic
+
+    - name: demarrage service apache
       win_command: powershell NET START apache
       ignore_errors: yes
 
