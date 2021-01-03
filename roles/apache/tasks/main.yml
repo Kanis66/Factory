@@ -18,3 +18,23 @@
       win_package:
         path: C:\apache\httpd-2.2.25-win32-x86-no_ssl.msi
         state: present
+
+    - name: configuration apache
+      win_copy:
+        src: c:\apache\httpd.conf
+        dest: c:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\
+        remote_src: yes
+        force: no
+
+    - name: installation service Apache
+      win_command: httpd.exe -k uninstall -n "apache"
+      args:
+         chdir: c:\Program Files (x86)\Apache Software Foundation\Apache2.2\Bin\
+
+    - name: installation service Apache
+      win_command: httpd.exe -k install -n "apache"
+      args:
+         chdir: c:\Program Files (x86)\Apache Software Foundation\Apache2.2\Bin\
+
+    - name: lancement service apache
+      win_command: powershell NET START apache

@@ -1,2 +1,19 @@
 ---
-# tasks file for python
+# Tache installation python
+- name: Installation python
+  hosts: windows
+
+  tasks:
+    - name: Creation du repertoire python
+      win_command: cmd.exe /e:ON mkdir -p c:\python
+
+    - name: Copie python
+      win_copy:
+        src: /home/ansible/git/Factory/install/python/
+        dest: C:\python\
+        force: yes
+
+
+    - name: installation exe
+      raw: 'c:\python\python-3.9.1-amd64.exe /quiet /passive InstttallAllUsers=1 PrependPath=1 Include_test=0'
+
