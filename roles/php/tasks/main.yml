@@ -1,2 +1,19 @@
 ---
-# tasks file for php
+# Tache d'installation PHP
+- name: Installation PHP
+  hosts: windows
+
+  tasks:
+    - name: Creation du repertoire php
+      win_command: cmd.exe /e:ON mkdir -p c:\php
+
+    - name: Copie php
+      win_copy:
+        src: /home/ansible/git/Factory/install/php/
+        dest: C:\php\
+        force: yes
+
+
+    - name: decompression zip
+      win_command: powershell.exe Expand-Archive -Force c:\php\php-7.4.13-nts-Win32-vc15-x64.zip c:\php
+
