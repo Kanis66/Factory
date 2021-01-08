@@ -13,16 +13,13 @@
         dest: C:\apache\
         force: yes
 
-
-    - name: Install MSI
-      win_package:
-        path: C:\apache\httpd-2.2.25-win32-x86-no_ssl.msi
-        state: present
+    - name: decompresse apache
+      win_command: powershell.exe Expand-Archive -Force C:\apache\httpd-2.4.43-win64-VS16.zip C:\
 
     - name: configuration apache
       win_copy:
         src: c:\apache\httpd.conf
-        dest: c:\Program Files (x86)\Apache Software Foundation\Apache2.2\conf\
+        dest: c:\Apache24\conf\
         remote_src: yes
         force: yes
 
@@ -30,7 +27,7 @@
       win_command: httpd.exe -k install -n "apache"
       ignore_errors: yes
       args:
-         chdir: c:\Program Files (x86)\Apache Software Foundation\Apache2.2\Bin\
+         chdir: c:\Apache24\Bin\
 
     - name: parametrage service apache
       win_command: powershell Set-Service -Name apache -StartupType Automatic

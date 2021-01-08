@@ -17,3 +17,16 @@
     - name: decompression zip
       win_command: powershell.exe Expand-Archive -Force c:\wp\wordpress-5.6-fr_FR.zip c:\
 
+    - name: mise a jour httpd.conf
+      win_copy:
+        src: C:\wp\httpd.conf
+        dest: C:\Apache24\conf
+        remote_src: yes
+        force: yes
+    
+    - name: arret service apache
+      win_command: powershell NET STOP apache
+
+    - name: demarrage service apache
+      win_command: powershell NET START apache
+

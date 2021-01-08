@@ -15,5 +15,21 @@
 
 
     - name: decompression zip
-      win_command: powershell.exe Expand-Archive -Force c:\php\php-7.4.13-nts-Win32-vc15-x64.zip c:\php
+      win_command: powershell.exe Expand-Archive -Force c:\php\php-7.4.4-Win32-vc15-x64.zip c:\php
+
+    - name: mise en place de httpd.conf
+      win_copy:
+        src: C:\php\httpd.conf
+        dest: C:\Apache24\conf\
+        remote_src: yes
+        force: yes
+ 
+    - name: ajout de php dans le path
+      win_command: cmd.exe /e:ON setx path "%PATH%; c:\php" /M
+
+    - name: arret service apache
+      win_command: powershell NET STOP apache
+
+    - name: demarrage service apache
+      win_command: powershell NET START apache
 
