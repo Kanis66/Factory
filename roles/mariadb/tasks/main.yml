@@ -1,9 +1,9 @@
 ---
 # Tache d'installation Apache
-- name: Installation MariaDB MSI
-  hosts: windows
+#- name: Installation MariaDB MSI
+# hosts: windows
 
-  tasks:
+# tasks:
     - name: Creation du repertoire MariaDB
       win_command: cmd.exe /e:ON mkdir -p c:\mariadb 
 
@@ -18,3 +18,16 @@
       win_package:
         path: C:\mariadb\mariadb-10.5.4-winx64.msi
         state: present
+
+    - name: creation base de donnees
+      mysql_db:
+        name: distribution
+        state: present
+
+    - name: creation admin de database
+      mysql_user:
+        name: admin
+        password: admin
+        priv; admin.*:ALL
+        state: present
+

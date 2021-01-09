@@ -1,9 +1,9 @@
 ---
 # Tache de mise en place de wordpress
-- name: Installation wordpress
-  hosts: windows
+#- name: Installation wordpress
+# hosts: windows
 
-  tasks:
+# tasks:
     - name: Creation du repertoire wordpress
       win_command: cmd.exe /e:ON mkdir -p c:\wp
 
