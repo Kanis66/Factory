@@ -15,12 +15,16 @@
 
 
     - name: installation exe
-      win_command: c:\python\python-3.9.1-amd64.exe /quiet /passive InstttallAllUsers=1 PrependPath=1 Include_test=0 Include_pip=1 Include_lib=1'
+      raw: 'c:\python\python-3.9.1-amd64.exe /quiet /passive InstttallAllUsers=1 PrependPath=1 Include_test=1 Include_pip=1 Include_lib=1 Include_dev=1 Include_tools=1'
 
     - name: installation pyad
-      win_command: py -m pip install pyad
-    
+      raw: 'py -m pip install pyad'
+
+    - name: installation pywin32
+      raw: 'py -m pip install pypiwin32'
+
     - name: lancement module création répertoire
       win_command: py c:\python\modcreadoss.py
-      args: 
+      args:
         chdir: c:\
+
