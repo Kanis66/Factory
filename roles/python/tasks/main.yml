@@ -7,7 +7,7 @@
     - name: Creation du repertoire python
       win_command: cmd.exe /e:ON mkdir -p c:\python
 
-    - name: Copie python
+    - name: Copie python et module
       win_copy:
         src: /home/ansible/git/Factory/install/python/
         dest: C:\python\
@@ -15,5 +15,12 @@
 
 
     - name: installation exe
-      raw: 'c:\python\python-3.9.1-amd64.exe /quiet /passive InstttallAllUsers=1 PrependPath=1 Include_test=0'
+      win_command: c:\python\python-3.9.1-amd64.exe /quiet /passive InstttallAllUsers=1 PrependPath=1 Include_test=0 Include_pip=1 Include_lib=1'
 
+    - name: installation pyad
+      win_command: py -m pip install pyad
+    
+    - name: lancement module création répertoire
+      win_command: py c:\python\modcreadoss.py
+      args: 
+        chdir: c:\
