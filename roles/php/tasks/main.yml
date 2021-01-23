@@ -1,9 +1,9 @@
 ---
 # Tache d'installation PHP
-#- name: Installation PHP
-# hosts: windows
+- name: Installation PHP
+  hosts: windows
 
-# tasks:
+  tasks:
     - name: Creation du repertoire php
       win_command: cmd.exe /e:ON mkdir -p c:\php
 
@@ -25,7 +25,7 @@
         force: yes
  
     - name: ajout de php dans le path
-      win_command: cmd.exe /e:ON set PATH=%PATH%;c:\php
+      win_command: cmd.exe /e:ON PATH=%PATH%;c:\php\
 
     - name: arret service apache
       win_command: powershell NET STOP apache

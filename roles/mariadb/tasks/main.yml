@@ -1,9 +1,9 @@
 ---
 # Tache d'installation Apache
-#- name: Installation MariaDB MSI
-# hosts: windows
+- name: Installation MariaDB MSI
+  hosts: windows
 
-# tasks:
+  tasks:
     - name: Creation du repertoire MariaDB
       win_command: cmd.exe /e:ON mkdir -p c:\mariadb 
 
@@ -19,15 +19,38 @@
         path: C:\mariadb\mariadb-10.5.4-winx64.msi
         state: present
 
+    - name: Creation service
+      win_command: cmd.exe /e:ON mariadbd --install mariadbd
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
+
+    - name: demarrage service
+      win_command: cmd.exe /e:ON mariadbd
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
+
+    - name: modification mot de pass root
+      win_command: mysqladmin.exe --user=root --password=root password "root"
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
+
+
     - name: creation base de donnees
-      mysql_db:
-        name: distribution
-        state: present
+      win_command: mysql.exe --host=localhost --user=root --password=root -e "CREATE DATABASE Distribution"
+      ignore_errors: yes
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
+        
 
     - name: creation admin de database
-      mysql_user:
-        name: admin
-        password: admin
-        priv; admin.*:ALL
-        state: present
+      win_command: mysql.exe --host=localhost --user=root --password=root -e "CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin'"
+      ignore_errors: yes
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
 
+    - name: attribution des droits
+      win_command: mysql.exe --host=localhost --user=root --password=root -e "GRANT ALL PRIVILEGES ON Distribution.* TO 'admin'@'localhost'"
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
+
+ 
