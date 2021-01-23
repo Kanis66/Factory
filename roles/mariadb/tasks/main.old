@@ -1,0 +1,34 @@
+---
+# Tache d'installation Apache
+- name: Installation MariaDB MSI
+  hosts: windows
+
+  tasks:
+    - name: Creation du repertoire MariaDB
+      win_command: cmd.exe /e:ON mkdir -p c:\mariadb 
+
+    - name: Copie MariaDB
+      win_copy:
+        src: /home/ansible/git/Factory/install/mariadb/
+        dest: C:\mariadb\
+        force: yes
+
+
+    - name: Install MSI
+      win_package:
+        path: C:\mariadb\mariadb-10.5.4-winx64.msi
+        state: present
+
+    - name: creation base de donnees
+      win_command: mysql.exe --host=localhost --user= root --password=root CREATE DATABASE Distribution;
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
+
+
+
+    - name: creation admin de database
+      raw: "mysql CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';"
+
+    - name: attribution des droits
+      raw: "mysql GRANT ALL PRIVILEGES ON Distribution.* TO 'admin'@'localhost';"
+ 

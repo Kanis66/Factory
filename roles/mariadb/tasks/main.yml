@@ -1,9 +1,9 @@
 ---
 # Tache d'installation Apache
-- name: Installation MariaDB MSI
-  hosts: windows
+#- name: Installation MariaDB MSI
+# hosts: windows
 
-  tasks:
+# tasks:
     - name: Creation du repertoire MariaDB
       win_command: cmd.exe /e:ON mkdir -p c:\mariadb 
 
@@ -30,10 +30,9 @@
         chdir: c:\Program Files\MariaDB 10.5\bin\
 
     - name: modification mot de pass root
-      win_command: mysqladmin.exe --user=root --password=root password "root"
+      win_command: mysqladmin.exe --user=root password "root"
       args:
         chdir: c:\Program Files\MariaDB 10.5\bin\
-
 
     - name: creation base de donnees
       win_command: mysql.exe --host=localhost --user=root --password=root -e "CREATE DATABASE Distribution"
