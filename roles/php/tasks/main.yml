@@ -25,7 +25,7 @@
         force: yes
  
     - name: ajout de php dans le path
-      win_command: cmd.exe /e:ON setx path "%PATH%; c:\php" /M
+      win_command: cmd.exe /e:ON set PATH=%PATH%;c:\php
 
     - name: arret service apache
       win_command: powershell NET STOP apache
