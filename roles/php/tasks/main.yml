@@ -26,12 +26,11 @@
         force: yes
  
     - name: ajout de php dans le path
-      win_command: powershell $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path;if ($oldpath -notlike "*c:\php\*"){$newpath = “$oldpath;c:\php\”};Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
-
+      win_command: powershell $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path;$newpath = “$oldpath;c:\php\”;Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
+      ignore_errors: yes
 
     - name: arret service apache
       win_command: powershell NET STOP apache
 
     - name: demarrage service apache
       win_command: powershell NET START apache
-
