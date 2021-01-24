@@ -1,9 +1,9 @@
 ---
 # Tache d'installation PHP
-- name: Installation PHP
-  hosts: windows
+#- name: Installation PHP
+# hosts: windows
 
-  tasks:
+# tasks:
 
     - name: Creation du repertoire php
       win_command: cmd.exe /e:ON mkdir -p c:\php
