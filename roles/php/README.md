@@ -1,38 +1,64 @@
-Role Name
-=========
+# PHP
+## Mise en place de PHP sur un serveur Windows.
 
-A brief description of the role goes here.
 
-Requirements
-------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+### Descriptif :
 
-Role Variables
---------------
+Installation de PHP sur un système Windows par Ansible.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
-Dependencies
-------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+### Lancement :
 
-Example Playbook
-----------------
+- se placer dans le dossier "roles/php/tasks"
+- Modifier le script du fichier *main.yml* comme dans l'exemple ci-dessous (décommenter 3 lignes).
+- Lancer la commande :
+	*sudo ansible-playbook main.yml*
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
 
-License
--------
+### Exemple de *main.yml* : 
 
-BSD
+```
+---
+# Tache d'installation PHP
+- name: Installation PHP
+ hosts: windows
 
-Author Information
-------------------
+ tasks:
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+    - name: Creation du repertoire php
+      win_command: cmd.exe /e:ON mkdir -p c:\php
+
+    - name: Copie php
+      win_copy:
+        src: /home/ansible/git/Factory/roles/php/files/
+        dest: C:\php\
+        force: yes
+
+    - name: Decompression zip
+      win_command: powershell.exe Expand-Archive -Force c:\php\php-7.4.4-Win32-vc15-x64.zip c:\php
+
+    - name: Mise en place de httpd.conf
+      win_copy:
+        src: C:\php\httpd.conf
+        dest: C:\Apache24\conf\
+        remote_src: yes
+        force: yes
+ 
+    - name: Ajout de php dans le path
+      win_command: powershell $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path;$newpath = “$oldpath;c:\php\”;Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
+      ignore_errors: yes
+
+    - name: Arret service Apache
+      win_command: powershell NET STOP Apache
+
+    - name: Demarrage service Apache
+      win_command: powershell NET START Apache
+
+```
+
+
+
+#### Par Michaël (Kanis66) - le 29/01/2021
