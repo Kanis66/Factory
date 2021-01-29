@@ -1,38 +1,68 @@
-Role Name
-=========
+# Apache
+## Mise en place d'Apache sur un serveur Windows.
 
-A brief description of the role goes here.
 
-Requirements
-------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+### Descriptif :
 
-Role Variables
---------------
+Installation d'un serveur Apache sur un système Windows par Ansible.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
-Dependencies
-------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+### Lancement :
 
-Example Playbook
-----------------
+- se placer dans le dossier "roles/apache/tasks"
+- Modifier le script du fichier *main.yml* comme dans l'exemple ci-dessous.
+- Lancer la commande :
+	*sudo ansible-playbook main.yml*
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
 
-License
--------
+### Exemple de *main.yml* : 
 
-BSD
+```
+---
 
-Author Information
-------------------
+# Tache d'installation Apache
+- name: Installation Apache MSI
+ hosts: windows
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+ tasks:
+  - name: Creation du repertoire Apache
+    win_command: cmd.exe /e:ON mkdir -p c:\apache 
+
+  - name: Copie Apache
+    win_copy:
+      src: /home/ansible/git/Factory/roles/apache/files/
+      dest: C:\apache\
+      force: yes
+
+  - name: Decompresse Apache
+    win_command: powershell.exe Expand-Archive -Force C:\apache\httpd-2.4.43-win64-VS16.zip C:\
+
+  - name: Configuration Apache
+    win_copy:
+      src: c:\apache\httpd.conf
+      dest: c:\Apache24\conf\
+      remote_src: yes
+      force: yes
+
+  - name: Installation service Apache
+    win_command: httpd.exe -k install -n "Apache"
+    ignore_errors: yes
+    args:
+      chdir: c:\Apache24\Bin\
+
+  - name: Parametrage service Apache
+    win_command: powershell Set-Service -Name Apache -StartupType Automatic
+
+  - name: Demarrage service Apache
+    win_command: powershell NET START Apache
+    ignore_errors: yes
+
+
+```
+
+
+
+#### Par Michaël (Kanis66) - le 29/01/2021
