@@ -1,39 +1,39 @@
 ---
 
 # Tache d'installation Apache
-#- name: Installation Apache MSI
-# hosts: windows
+- name: Installation Apache MSI
+  hosts: windows
 
-# tasks:
+  tasks:
   - name: Creation du repertoire Apache
     win_command: cmd.exe /e:ON mkdir -p c:\apache 
 
   - name: Copie Apache
     win_copy:
-      src: /home/ansible/git/Factory/install/apache/
+      src: /home/ansible/git/Factory/roles/apache/files/
       dest: C:\apache\
       force: yes
 
-  - name: decompresse apache
+  - name: Decompresse Apache
     win_command: powershell.exe Expand-Archive -Force C:\apache\httpd-2.4.43-win64-VS16.zip C:\
 
-  - name: configuration apache
+  - name: Configuration Apache
     win_copy:
       src: c:\apache\httpd.conf
       dest: c:\Apache24\conf\
       remote_src: yes
       force: yes
 
-  - name: installation service Apache
-    win_command: httpd.exe -k install -n "apache"
+  - name: Installation service Apache
+    win_command: httpd.exe -k install -n "Apache"
     ignore_errors: yes
     args:
       chdir: c:\Apache24\Bin\
 
-  - name: parametrage service apache
+  - name: Parametrage service Apache
     win_command: powershell Set-Service -Name apache -StartupType Automatic
 
-  - name: demarrage service apache
+  - name: Demarrage service Apache
     win_command: powershell NET START apache
     ignore_errors: yes
 

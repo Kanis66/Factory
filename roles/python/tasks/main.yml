@@ -9,7 +9,7 @@
 
     - name: Copie python et module
       win_copy:
-        src: /home/ansible/git/Factory/install/python/
+        src: /home/ansible/git/Factory/roles/python/files/
         dest: C:\python\
         force: yes
 

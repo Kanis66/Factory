@@ -10,7 +10,7 @@
 
     - name: Copie php
       win_copy:
-        src: /home/ansible/git/Factory/install/php/
+        src: /home/ansible/git/Factory/roles/php/files/
         dest: C:\php\
         force: yes
 
