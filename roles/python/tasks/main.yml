@@ -14,16 +14,16 @@
         force: yes
 
 
-    - name: installation exe
+    - name: Installation Python
       raw: 'c:\python\python-3.9.1-amd64.exe /quiet /passive InstttallAllUsers=1 PrependPath=1 Include_test=1 Include_pip=1 Include_lib=1 Include_dev=1 Include_tools=1'
 
-    - name: installation pyad
+    - name: Installation module pyad
       raw: 'py -m pip install pyad'
 
-    - name: installation pywin32
+    - name: Installation module pywin32
       raw: 'py -m pip install pypiwin32'
 
-    - name: lancement module création répertoire
+    - name: Lancement module création répertoire
       win_command: py c:\python\modcreadoss.py
       args:
         chdir: c:\

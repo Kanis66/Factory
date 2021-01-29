@@ -31,9 +31,9 @@
       chdir: c:\Apache24\Bin\
 
   - name: Parametrage service Apache
-    win_command: powershell Set-Service -Name apache -StartupType Automatic
+    win_command: powershell Set-Service -Name Apache -StartupType Automatic
 
   - name: Demarrage service Apache
-    win_command: powershell NET START apache
+    win_command: powershell NET START Apache
     ignore_errors: yes
 

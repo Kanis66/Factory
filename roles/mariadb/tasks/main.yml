@@ -13,29 +13,23 @@
         dest: C:\mariadb\
         force: yes
 
-    - name: Install MSI
+    - name: Install MariaDB
       win_command: C:\windows\system32\msiexec.exe /i c:\mariadb\mariadb-10.5.4-winx64.msi SERVICENAME=MariaDB PASSWORD=root /qn
       ignore_errors: yes
 
-#   - name: modification mot de passe root
-#     win_command: mysqladmin.exe --user=root password "root"
-#     ignore_errors: yes
-#     args:
-#       chdir: c:\Program Files\MariaDB 10.5\bin\
-
-    - name: creation de la base de données
+    - name: Creation de la base de données
       win_command: mysql.exe --host=localhost --user=root --password=root -e "CREATE DATABASE Distribution"
       ignore_errors: yes
       args:
         chdir: c:\Program Files\MariaDB 10.5\bin\
 
-    - name: creation admin de database
+    - name: Creation admin de database
       win_command: mysql.exe --host=localhost --user=root --password=root -e "CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin'"
       ignore_errors: yes
       args:
         chdir: c:\Program Files\MariaDB 10.5\bin\
 
-    - name: attribution des droits
+    - name: Attribution des droits
       win_command: mysql.exe --host=localhost --user=root --password=root -e "GRANT ALL PRIVILEGES ON Distribution.* TO 'admin'@'localhost'"
       args:
         chdir: c:\Program Files\MariaDB 10.5\bin\

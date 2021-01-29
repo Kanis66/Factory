@@ -14,23 +14,22 @@
         dest: C:\php\
         force: yes
 
-
-    - name: decompression zip
+    - name: Decompression zip
       win_command: powershell.exe Expand-Archive -Force c:\php\php-7.4.4-Win32-vc15-x64.zip c:\php
 
-    - name: mise en place de httpd.conf
+    - name: Mise en place de httpd.conf
       win_copy:
         src: C:\php\httpd.conf
         dest: C:\Apache24\conf\
         remote_src: yes
         force: yes
  
-    - name: ajout de php dans le path
+    - name: Ajout de php dans le path
       win_command: powershell $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path;$newpath = “$oldpath;c:\php\”;Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
       ignore_errors: yes
 
-    - name: arret service apache
-      win_command: powershell NET STOP apache
+    - name: Arret service Apache
+      win_command: powershell NET STOP Apache
 
-    - name: demarrage service apache
-      win_command: powershell NET START apache
+    - name: Demarrage service Apache
+      win_command: powershell NET START Apache
