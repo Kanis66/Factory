@@ -9,7 +9,7 @@
 
     - name: Copie MariaDB
       win_copy:
-        src: /home/ansible/git/Factory/install/mariadb/
+        src: /home/ansible/git/Factory/roles/mariadb/files/
         dest: C:\mariadb\
         force: yes
 

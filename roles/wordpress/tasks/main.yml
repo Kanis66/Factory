@@ -9,7 +9,7 @@
 
     - name: Copie wordpress
       win_copy:
-        src: /home/ansible/git/Factory/install/wordpress/
+        src: /home/ansible/git/Factory/roles/wordpress/files/
         dest: C:\wp\
         force: yes
 
