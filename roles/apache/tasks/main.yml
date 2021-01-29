@@ -1,10 +1,10 @@
 ---
 
 # Tache d'installation Apache
-- name: Installation Apache MSI
-  hosts: windows
+#- name: Installation Apache MSI
+# hosts: windows
 
-  tasks:
+# tasks:
   - name: Creation du repertoire Apache
     win_command: cmd.exe /e:ON mkdir -p c:\apache 
 
