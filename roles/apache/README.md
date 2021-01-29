@@ -12,7 +12,7 @@ Installation d'un serveur Apache sur un système Windows par Ansible.
 ### Lancement :
 
 - se placer dans le dossier "roles/apache/tasks"
-- Modifier le script du fichier *main.yml* comme dans l'exemple ci-dessous.
+- Modifier le script du fichier *main.yml* comme dans l'exemple ci-dessous (décommenter 3 lignes).
 - Lancer la commande :
 	*sudo ansible-playbook main.yml*
 
