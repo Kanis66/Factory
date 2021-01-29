@@ -1,38 +1,64 @@
-Role Name
-=========
+# MariaDB
+## Mise en place de MariaDB sur un serveur Windows.
 
-A brief description of the role goes here.
 
-Requirements
-------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+### Descriptif :
 
-Role Variables
---------------
+Installation de MariaDB sur un système Windows par Ansible.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
 
-Dependencies
-------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+### Lancement :
 
-Example Playbook
-----------------
+- se placer dans le dossier "roles/mariadb/tasks"
+- Modifier le script du fichier *main.yml* comme dans l'exemple ci-dessous (décommenter 3 lignes).
+- Lancer la commande :
+	*sudo ansible-playbook main.yml*
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
 
-License
--------
+### Exemple de *main.yml* : 
 
-BSD
+```
+---
+# Tache d'installation Apache
+- name: Installation MariaDB MSI
+ hosts: windows
 
-Author Information
-------------------
+ tasks:
+    - name: Creation du repertoire MariaDB
+      win_command: cmd.exe /e:ON mkdir -p c:\mariadb 
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+    - name: Copie MariaDB
+      win_copy:
+        src: /home/ansible/git/Factory/roles/mariadb/files/
+        dest: C:\mariadb\
+        force: yes
+
+    - name: Install MariaDB
+      win_command: C:\windows\system32\msiexec.exe /i c:\mariadb\mariadb-10.5.4-winx64.msi SERVICENAME=MariaDB PASSWORD=root /qn
+      ignore_errors: yes
+
+    - name: Creation de la base de données
+      win_command: mysql.exe --host=localhost --user=root --password=root -e "CREATE DATABASE Distribution"
+      ignore_errors: yes
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
+
+    - name: Creation admin de database
+      win_command: mysql.exe --host=localhost --user=root --password=root -e "CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin'"
+      ignore_errors: yes
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
+
+    - name: Attribution des droits
+      win_command: mysql.exe --host=localhost --user=root --password=root -e "GRANT ALL PRIVILEGES ON Distribution.* TO 'admin'@'localhost'"
+      args:
+        chdir: c:\Program Files\MariaDB 10.5\bin\
+
+```
+
+
+
+#### Par Michaël (Kanis66) - le 29/01/2021
