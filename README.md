@@ -47,6 +47,18 @@ Dans ma version de Windows Server, la dernière version de VCREDIST a été inst
 	*sudo ansible-playbook install-complete.yml*
 
 
+### Données à retenir (information à renseigner pour WORDPRESS):
+- Nom de la base de données : Distribution
+
+- Administrateur MARIADB : root
+- Mot de passe : root
+
+- Utilisateur privilégié de la base de données : admin
+- Mot de passe : admin
+
+- Port : par défaut
+
+
 
 ### Exemple de *modcreadoss.py* : 
 
