@@ -21,15 +21,15 @@ Chacun des rôles peut être joué de façon indépendante, il suffit de décomm
 Un script Python, *modcreadoss.py*, permet de récupérer les noms d'utilisateurs de l'Active Directory du serveur Windows pour leurs créer un dossier personnel.
 (Dans mon cas, je récupère les utilisateurs de deux Unités Organisationnelles *PROFS* et *ELEVES*, mais cela peut être facilement modifié pour l'adapter au besoin).
 
-Erreurs ignorées à signaler : si on rejoue le Playbook plusieurs fois : 4 erreurs sont ignorées :
+Erreurs ignorées à signaler : si on rejoue le Playbook plusieurs fois, 4 erreurs sont ignorées :
 
-	_ROLE MariaDB :_
-	- Création de la databse : Elle existe déjà -> *Ignoré*
-	- Création Admin de la Databse : Il existe déjà -> *Ignoré*
+	_ROLE MariaDB_ :
+	* Création de la databse : Elle existe déjà -> *Ignoré*
+	* Création Admin de la Databse : Il existe déjà -> *Ignoré*
 
-	_ROLE Apache :_
-	- Création Service Apache : Il existe déjà -> *Ignoré*
-	- Lancement Service Apache : Il est déjà lancé -> *Ignoré*
+	_ROLE Apache_ :
+	* Création Service Apache : Il existe déjà -> *Ignoré*
+	* Lancement Service Apache : Il est déjà lancé -> *Ignoré*
 
 
 
