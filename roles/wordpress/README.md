@@ -57,4 +57,4 @@ Installation de Wordpress sur un système Windows par Ansible.
 
 
 
-#### Par Michaël (Kanis66) - le 29/01/2021
+#### Par Michaël D. (Kanis66) - le 29/01/2021 - OPENCLASSROOM - Parcours AIC
