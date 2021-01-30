@@ -23,11 +23,11 @@ Un script Python, *modcreadoss.py*, permet de récupérer les noms d'utilisateur
 
 Erreurs ignorées à signaler : si on rejoue le Playbook plusieurs fois, 4 erreurs sont ignorées :
 
-_ROLE MariaDB_ :
+_ROLE MariaDB :_
 * Création de la databse : Elle existe déjà -> *Ignoré*
 * Création Admin de la Databse : Il existe déjà -> *Ignoré*
 
-_ROLE Apache_ :
+_ROLE Apache :_
 * Création Service Apache : Il existe déjà -> *Ignoré*
 * Lancement Service Apache : Il est déjà lancé -> *Ignoré*
 
