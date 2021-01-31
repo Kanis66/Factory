@@ -25,7 +25,7 @@ Erreurs ignorées à signaler : si on rejoue le Playbook plusieurs fois, 4 erreu
 
 _ROLE MariaDB :_
 * Création de la databse : Elle existe déjà -> *Ignoré*
-* Création Admin de la Databse : Il existe déjà -> *Ignoré*
+* Création Admin de la database : Il existe déjà -> *Ignoré*
 
 _ROLE Apache :_
 * Création Service Apache : Il existe déjà -> *Ignoré*
@@ -86,13 +86,12 @@ for row in q.get_results():
 
 
 
-### TODO
+### TO DO
 
 - Variabilisation afin d'augmenter la modularité.
 - Ecrire les Tests.
-- Corriger le bug de PHP dans la Path.
 - Optimiser/nettoyer les répertoires de travail du playbook.
-- Outils de désinstallation/nettoyage des éléments mis en place par la playbook. (Restauration à l'état d'origine)
+- Outils de désinstallation/nettoyage des éléments mis en place par le playbook. (Restauration à l'état d'origine)
 - Gérer les droits de partage sur les dossiers utilisateurs créés.
 
 

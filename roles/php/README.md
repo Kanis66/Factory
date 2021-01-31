@@ -24,9 +24,9 @@ Installation de PHP sur un système Windows par Ansible.
 ---
 # Tache d'installation PHP
 - name: Installation PHP
- hosts: windows
+  hosts: windows
 
- tasks:
+  tasks:
 
     - name: Creation du repertoire php
       win_command: cmd.exe /e:ON mkdir -p c:\php
@@ -48,8 +48,9 @@ Installation de PHP sur un système Windows par Ansible.
         force: yes
  
     - name: Ajout de php dans le path
-      win_command: powershell $oldpath = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path;$newpath = “$oldpath;c:\php\”;Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH -Value $newPath
-      ignore_errors: yes
+      win_path:
+         elements: C:\php\
+         state: present
 
     - name: Arret service Apache
       win_command: powershell NET STOP Apache

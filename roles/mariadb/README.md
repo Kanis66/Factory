@@ -24,9 +24,9 @@ Installation de MariaDB sur un système Windows par Ansible.
 ---
 # Tache d'installation Apache
 - name: Installation MariaDB MSI
- hosts: windows
+  hosts: windows
 
- tasks:
+  tasks:
     - name: Creation du repertoire MariaDB
       win_command: cmd.exe /e:ON mkdir -p c:\mariadb 
 

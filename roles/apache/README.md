@@ -25,9 +25,9 @@ Installation d'un serveur Apache sur un système Windows par Ansible.
 
 # Tache d'installation Apache
 - name: Installation Apache MSI
- hosts: windows
+  hosts: windows
 
- tasks:
+  tasks:
   - name: Creation du repertoire Apache
     win_command: cmd.exe /e:ON mkdir -p c:\apache 
 

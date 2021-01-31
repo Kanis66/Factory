@@ -24,9 +24,9 @@ Installation de Python sur un système Windows par Ansible.
 ---
 # Tache installation python
 - name: Installation python
- hosts: windows
+  hosts: windows
 
- tasks:
+  tasks:
     - name: Creation du repertoire python
       win_command: cmd.exe /e:ON mkdir -p c:\python
 

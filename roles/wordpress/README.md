@@ -24,9 +24,9 @@ Installation de Wordpress sur un système Windows par Ansible.
 ---
 # Tache de mise en place de wordpress
 - name: Installation wordpress
- hosts: windows
+  hosts: windows
 
- tasks:
+  tasks:
     - name: Creation du repertoire WP
       win_command: cmd.exe /e:ON mkdir -p c:\wp
 
